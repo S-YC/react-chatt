@@ -4,7 +4,12 @@ import Chat from './components/Chart';
 import Join from './components/Join';
 
 const App = () => {
-  return <Router></Router>;
+  return (
+    <Router>
+      <Route path="/" component={Join} />
+      <Route path="/chat" component={Chat} />
+    </Router>
+  );
 };
 
 export default App;
