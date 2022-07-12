@@ -8,7 +8,7 @@ const Join = () => {
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
-        <h1 className="heading">회원가입</h1>
+        <h1 className="heading">채팅방</h1>
         <div>
           <input
             placeholder="이름"
