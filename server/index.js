@@ -20,19 +20,21 @@ io.on('connection', (socket) => {
     const { error, user } = addUser({ id: socket.id, name, room });
     if (error) callback({ error: '에러가 발생했어요.' });
 
-    socket.emit('message', {
-      user: 'admin',
-      text: `${user.name}, ${user.room}에 오신것을 환영합니다.`,
-    });
-    socket.broadcast.to(user.room).emit('message', {
-      user: 'admin',
-      text: `${user.name} 님이 가입하셨습니다.`,
-    });
-    io.to(user.room).emit('roomData', {
-      room: user.room,
-      users: getUsersInRoom(user.room),
-    });
-    socket.join(user.room);
+    if (user) {
+      socket.emit('message', {
+        user: 'admin',
+        text: `${user.name}, ${user.room}에 오신것을 환영합니다.`,
+      });
+      socket.broadcast.to(user.room).emit('message', {
+        user: 'admin',
+        text: `${user.name} 님이 가입하셨습니다.`,
+      });
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+      socket.join(user.room);
+    }
 
     callback();
   });
